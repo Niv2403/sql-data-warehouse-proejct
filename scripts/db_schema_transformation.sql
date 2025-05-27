@@ -1,3 +1,18 @@
+/*
+=============================================================
+Create Database and Schemas
+=============================================================
+Script Purpose:
+    This script creates a new database named 'DataWarehouse' after checking if it already exists. 
+    If the database exists, it is dropped and recreated. Additionally, the script sets up three schemas 
+    within the database: 'bronze', 'silver', and 'gold'.
+	
+WARNING:
+    Running this script will drop the entire 'DataWarehouse' database if it exists. 
+    All data in the database will be permanently deleted. Proceed with caution 
+    and ensure you have proper backups before running this script.
+*/
+
 use master;
 --Drop and recreate the data_warehouse database
 if exists (select 1 from sys.databases where name = 'data_warehouse')
@@ -27,7 +42,16 @@ go
 
 
 
---Bronze layer schema : 
+/*
+===============================================================================
+DDL Script: Create Bronze Tables
+===============================================================================
+Script Purpose:
+    This script creates tables in the 'bronze' schema, dropping existing tables 
+    if they already exist.
+	  Run this script to re-define the DDL structure of 'bronze' Tables
+===============================================================================
+*/
 
 if object_id('bronze.crm_cust_info','U') is not null
 drop table bronze.crm_cust_info;
@@ -66,8 +90,8 @@ create table bronze.crm_sales_details(
 	sls_due_dt int,
 	sls_sales int,
 	sls_quantity int,
-	sls_price int	
-) ;
+	sls_priceÂ int	
+)Â ;
 
 
 
@@ -98,12 +122,19 @@ create table bronze.erp_px_cat_g1v2(
 );
 
 
--- after above task create store procedure for bronze layes schema
 
 
 
-
---Silver Layer Schema:
+/*
+===============================================================================
+DDL Script: Create Silver Tables
+===============================================================================
+Script Purpose:
+    This script creates tables in the 'silver' schema, dropping existing tables 
+    if they already exist.
+	  Run this script to re-define the DDL structure of 'bronze' Tables
+===============================================================================
+*/
 
 
 if object_id('silver.crm_cust_info','U') is not null
@@ -146,9 +177,9 @@ create table silver.crm_sales_details(
 	sls_due_dt date,
 	sls_sales int,
 	sls_quantity int,
-	sls_price int	,
+	sls_priceÂ int	,
 	dwh_create_date datetime2 default getdate()
-) ;
+)Â ;
 
 
 
@@ -188,8 +219,6 @@ go
 
 
 --Transformation :
-
-
 
 
 /*
