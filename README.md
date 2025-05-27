@@ -90,6 +90,7 @@ data-warehouse-project/
 │   ├── db_schema_transformation.sql/   # Scripts for extracting and loading raw data, applies schema transformations to 
 │                                         align CRM and ERP data.
 │   ├── Store_Procedures.sql/           # Reusable SQL procedures for ETL logic.
+│   ├── ddl_gold.sql/                   # Scripts for creating analytical models
 │
 ├── tests/                              # SQL queries to verify data integrity and quality post-load.
 │
